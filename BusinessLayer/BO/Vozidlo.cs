@@ -30,16 +30,6 @@ namespace BusinessLayer.BO
 		public int CenaZaDen { get; set; }
 
 		/// <summary>
-		/// Typ karoserie vozidla
-		/// </summary>
-		public string TypKaroserie { get; set; }
-
-		/// <summary>
-		/// Pocet dveri vozidla
-		/// </summary>
-		public int PocetDveri { get; set; }
-
-		/// <summary>
 		/// Motor vozidla
 		/// </summary>
 		public string Motor { get; set; }
