@@ -1,6 +1,7 @@
 ﻿using System;
 
 using BusinessLayer.BO;
+using DataLayer;
 
 namespace CMDTest
 {
@@ -14,6 +15,11 @@ namespace CMDTest
 				Jmeno = "Petr"
 			};
 			Console.WriteLine(uzivatel.Jmeno);
+
+			Database db = new Database();
+
+			bool pls = db.Connect();
+			Console.WriteLine(pls);
 		}
 	}
 }
