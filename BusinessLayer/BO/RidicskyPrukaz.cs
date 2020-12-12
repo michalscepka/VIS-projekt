@@ -9,6 +9,8 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class RidicskyPrukaz
 	{
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Číslo řidičského průkazu
 		/// </summary>

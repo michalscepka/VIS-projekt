@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
-namespace BusinessLayer.BO
+namespace DTO.Classes
 {
-	/// <summary>
-	/// Reprezentuje pobočku
-	/// </summary>
-	public class Pobocka
+	public class PobockaDTO : ISerializable
 	{
 		public int Id { get; set; }
 
@@ -23,12 +21,12 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public string Telefon { get; set; }
 
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Pobocka()
+		public void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
-
+			info.AddValue("Id", Id);
+			info.AddValue("Mesto", Mesto);
+			info.AddValue("Ulice", Ulice);
+			info.AddValue("Telefon", Telefon);
 		}
 	}
 }

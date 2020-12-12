@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer.BO
+namespace DTO.Classes
 {
-	/// <summary>
-	/// Třída s vlastnostmi specifickými pro zaměstnance v IS
-	/// </summary>
-	public class Zamestnanec : Uzivatel
+	public class ZamestnanecDTO : UzivatelDTO
 	{
-		public int Id { get; set; }
-
 		/// <summary>
 		/// Datum přijetí do zaměstnání
 		/// </summary>
@@ -21,14 +16,9 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public int HodinovaMzda { get; set; }
 
-		public Pobocka Pobocka { get; set; }
-
 		/// <summary>
-		/// Konstruktor třídy
+		/// Id pobočky na které zaměstnanec pracuje
 		/// </summary>
-		public Zamestnanec()
-		{
-
-		}
+		public int PobockaId { get; set; }
 	}
 }

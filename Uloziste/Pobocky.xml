@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<PobockyStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Pobocky>
+    <PobockaDTO>
+      <Id>1</Id>
+      <Mesto>Uzasne</Mesto>
+      <Ulice>uzasna</Ulice>
+      <Telefon>748932473298</Telefon>
+    </PobockaDTO>
+    <PobockaDTO>
+      <Id>2</Id>
+      <Mesto>Uzasne</Mesto>
+      <Ulice>uzasna</Ulice>
+      <Telefon>fdafda</Telefon>
+    </PobockaDTO>
+    <PobockaDTO>
+      <Id>3</Id>
+      <Mesto>test</Mesto>
+      <Ulice>testuju</Ulice>
+      <Telefon>111111</Telefon>
+    </PobockaDTO>
+    <PobockaDTO>
+      <Id>4</Id>
+      <Mesto>test</Mesto>
+      <Ulice>testuju</Ulice>
+      <Telefon>111111</Telefon>
+    </PobockaDTO>
+    <PobockaDTO>
+      <Id>5</Id>
+      <Mesto>test</Mesto>
+      <Ulice>testuju</Ulice>
+      <Telefon>111111</Telefon>
+    </PobockaDTO>
+  </Pobocky>
+</PobockyStorage>

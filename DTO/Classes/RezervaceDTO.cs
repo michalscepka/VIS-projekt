@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer.BO
+namespace DTO.Classes
 {
-	/// <summary>
-	/// Reprezentuje jednu rezervaci vozidla
-	/// </summary>
-	public class Rezervace
+	public class RezervaceDTO
 	{
 		public int Id { get; set; }
 
@@ -31,16 +28,8 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public int Kauce { get; set; }
 
-		public Zakaznik Zakaznik { get; set; }
+		public int ZakaznikId { get; set; }
 
-		public Vozidlo Vozidlo { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Rezervace()
-		{
-
-		}
+		public int VozidloId { get; set; }
 	}
 }

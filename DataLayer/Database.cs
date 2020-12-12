@@ -18,12 +18,23 @@ namespace DataLayer
 
         private SqlConnection Connection { get; set; }
         private SqlTransaction SqlTransaction { get; set; }
-        public string Language { get; set; }
+        private static readonly object m_LockObj = new object();
+        private static Database m_Instance = null;
+
+        public static Database Instance
+        {
+            get
+            {
+                lock (m_LockObj)
+                {
+                    return m_Instance ??= new Database();
+                }
+            }
+        }
 
         public Database()
         {
             Connection = new SqlConnection();
-            Language = "en";
         }
 
         /// <summary>
@@ -103,6 +114,23 @@ namespace DataLayer
                 throw e;
             }
             return rowNumber;
+        }
+
+        /// <summary>
+        /// Call SQL and return single value
+        /// </summary>
+        public int ExecuteScalar(SqlCommand command)
+        {
+            int answer = -1;
+            try
+            {
+                answer = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return answer;
         }
 
         /// <summary>

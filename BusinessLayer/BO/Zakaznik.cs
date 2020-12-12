@@ -9,6 +9,8 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class Zakaznik : Uzivatel
 	{
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Login uživatele
 		/// </summary>
@@ -23,6 +25,8 @@ namespace BusinessLayer.BO
 		/// Číslo platebni karty uživatele
 		/// </summary>
 		public string CisloPlatebniKarty { get; set; }
+
+		public RidicskyPrukaz RidicskyPrukaz { get; set; }
 
 		/// <summary>
 		/// Konstruktor třídy

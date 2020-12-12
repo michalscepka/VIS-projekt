@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer.BO
+namespace DTO.Classes
 {
-	/// <summary>
-	/// Reprezentuje vozidlo
-	/// </summary>
-	public class Vozidlo
+	public class VozidloDTO
 	{
+		/// <summary>
+		/// Id v databázi
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace BusinessLayer.BO
 		public int PocetDveri { get; set; }
 
 		/// <summary>
-		/// Motor vozidla
+		/// Motor vozidla a jeho vykon
 		/// </summary>
 		public string Motor { get; set; }
 
@@ -51,14 +51,9 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public bool Aktivni { get; set; }
 
-		public Pobocka Pobocka { get; set; }
-
 		/// <summary>
-		/// Konstruktor třídy
+		/// Id pobočky v databázi
 		/// </summary>
-		public Vozidlo()
-		{
-
-		}
+		public int PobockaId { get; set; }
 	}
 }
