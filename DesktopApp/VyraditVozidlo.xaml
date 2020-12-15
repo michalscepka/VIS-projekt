@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="DesktopApp.VyraditVozidlo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+			<RowDefinition Height="Auto" MinHeight="40"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+		<Label Grid.Column="0" Content="Název automobilu:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="109"/>
+		<TextBox Grid.Column="0" Name="searchTextBox" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Margin="114,0,0,0" Height="18"/>
+		<Button Grid.Column="0" Click="Hledat_Click" Content="Hledat" HorizontalAlignment="Left" Width="50" Margin="239,0,0,0" VerticalAlignment="Center" Height="20"/>
+
+		<ListView Name="listView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Značka" DisplayMemberBinding="{Binding Znacka}" />
+					<GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" />
+					<GridViewColumn Header="SPZ" DisplayMemberBinding="{Binding SPZ}" />
+					<GridViewColumn Header="Cena/den (Kč)" DisplayMemberBinding="{Binding CenaZaDen}" />
+					<GridViewColumn Header="Motor" DisplayMemberBinding="{Binding Motor}" />
+					<GridViewColumn Header="Spotřeba" DisplayMemberBinding="{Binding Spotreba}" />
+					<GridViewColumn Header="Aktivní" DisplayMemberBinding="{Binding Aktivni}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+
+		<Button Grid.Row="2" Content="Vyřadit označené" Name="vyraditButton" HorizontalAlignment="Left" Width="110" VerticalAlignment="Center" Margin="10,0,0,0" Click="Vyradit_Click" Height="20" />
+		<Button Grid.Row="2" Content="Nahradit označeným" Name="nahraditButton" HorizontalAlignment="Left" Width="120" VerticalAlignment="Center" Margin="125,0,0,0" Click="Nahradit_Click" Height="20" />
+		<Label Grid.Row ="2" Grid.ColumnSpan="2" Content="hint" Name="hintLabel" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="250,0,0,0" />
+
+	</Grid>
+</UserControl>

@@ -111,7 +111,7 @@ namespace CMDTest
 
 			Console.WriteLine(SpravaVozidel.Instance.CelkovyPocetVozidel);*/
 
-			Console.WriteLine(SpravaPobocek.Instance.CelkovyPocetPobocek);
+			/*Console.WriteLine(SpravaPobocek.Instance.CelkovyPocetPobocek);
 
 			SpravaPobocek.Instance.AddPobocka(new Pobocka()
 			{
@@ -122,7 +122,7 @@ namespace CMDTest
 			});
 
 			SpravaPobocek.Instance.SaveAll();
-			Console.WriteLine(SpravaPobocek.Instance.CelkovyPocetPobocek);
+			Console.WriteLine(SpravaPobocek.Instance.CelkovyPocetPobocek);*/
 		}
 	}
 }

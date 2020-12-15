@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Uloziste", "Uloziste", "{11
 		Uloziste\Pobocky.xml = Uloziste\Pobocky.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{1C82D491-9A75-4123-97ED-F5D95A96186C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApp", "DesktopApp\DesktopApp.csproj", "{B2173C70-CD8D-478D-87AB-D5913F361FDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{3B71CA7B-97D2-446E-A389-129B94D71B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B71CA7B-97D2-446E-A389-129B94D71B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B71CA7B-97D2-446E-A389-129B94D71B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C82D491-9A75-4123-97ED-F5D95A96186C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C82D491-9A75-4123-97ED-F5D95A96186C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C82D491-9A75-4123-97ED-F5D95A96186C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C82D491-9A75-4123-97ED-F5D95A96186C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2173C70-CD8D-478D-87AB-D5913F361FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2173C70-CD8D-478D-87AB-D5913F361FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2173C70-CD8D-478D-87AB-D5913F361FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2173C70-CD8D-478D-87AB-D5913F361FDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
