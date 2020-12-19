@@ -186,7 +186,7 @@ namespace DataLayer.TableDataGateways
 			string sqlUpdate =
 				"UPDATE rezervace SET datum_zacatku=@datum_zacatku, datum_konce=@datum_konce, cena=@cena, kauce=@kauce, zakaznik_id=@zakaznik_id, vozidlo_id=@vozidlo_id " +
 				"WHERE id=@id";
-			var sql = entity.Id < 0 ? sqlInsert : sqlUpdate;
+			string sql = entity.Id < 0 ? sqlInsert : sqlUpdate;
 
 			//Vlozeni nebo aktualizace zamestnance v ulozisti
 			try
@@ -260,7 +260,7 @@ namespace DataLayer.TableDataGateways
 		{
 			errMsg = string.Empty;
 
-			var sql = "DELETE FROM rezervace WHERE id=@id";
+			string sql = "DELETE FROM rezervace WHERE id=@id";
 
 			//Smazani zamestnance z uloziste
 			try

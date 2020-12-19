@@ -5,13 +5,20 @@
 
 <h3>@Model.Vozidlo.Znacka @Model.Vozidlo.Model</h3>
 
-<ul>
-	<li>Motor: @Model.Vozidlo.Motor</li>
-	<li>Počet dveří: @Model.Vozidlo.PocetDveri</li>
-	<li>Spotřeba: @Model.Vozidlo.Spotreba l/100 km</li>
-	<li>Dostupné na pobočce: @Model.Vozidlo.Pobocka.Mesto</li>
-	<li>@Model.Vozidlo.CenaZaDen Kč/den</li>
-</ul>
+<div class="row">
+	<div class="col-lg-3 m-4">
+		<img src="@Model.Vozidlo.Obrazek" style="max-width:300px"/>
+	</div>
+	<div class="col-lg-6 m-4">
+		<ul>
+			<li>Motor: @Model.Vozidlo.Motor</li>
+			<li>Počet dveří: @Model.Vozidlo.PocetDveri</li>
+			<li>Spotřeba: @Model.Vozidlo.Spotreba l/100 km</li>
+			<li>Dostupné na pobočce: @Model.Vozidlo.Pobocka.Mesto</li>
+			<li>@Model.Vozidlo.CenaZaDen Kč/den</li>
+		</ul>
+	</div>
+</div>
 
 <form method="post" asp-page-handler="Rezervovat" asp-route-id="@Model.Vozidlo.Id">
 	<label>od:</label>

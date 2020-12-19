@@ -47,6 +47,7 @@ CREATE TABLE vozidlo (
 	pocet_dveri INTEGER,
 	motor VARCHAR(100),
 	spotreba FLOAT,
+	obrazek VARCHAR(100),
 	aktivni BIT,
 	pobocka_id INTEGER);
 GO

@@ -46,6 +46,8 @@ namespace DTO.Classes
 		/// </summary>
 		public double Spotreba { get; set; }
 
+		public string Obrazek { get; set; }
+
 		/// <summary>
 		/// Jestli je vozidlo v nabídce pro zákazníky
 		/// </summary>

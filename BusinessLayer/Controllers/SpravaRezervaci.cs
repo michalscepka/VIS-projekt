@@ -97,6 +97,7 @@ namespace BusinessLayer.Controllers
 			//TODO ziskat nove ID z databaze
 			if (RezervaceGW.Instance.InsertOrUpdate(rezervaceDTO, out string errMsg))
 			{
+				rezervace.Id = rezervaceDTO.Id;
 				return true;
 			}
 			else

@@ -42,7 +42,7 @@ namespace DataLayer.TableDataGateways
 			seznam = null;
 			errMsg = string.Empty;
 
-			string sql = "SELECT id, znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, aktivni, pobocka_id FROM vozidlo";
+			string sql = "SELECT id, znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, obrazek, aktivni, pobocka_id FROM vozidlo";
 
 			//Nacteni zamestnance z uloziste
 			try
@@ -71,6 +71,7 @@ namespace DataLayer.TableDataGateways
 										PocetDveri = result.GetInt32(result.GetOrdinal("pocet_dveri")),
 										Motor = result.GetString(result.GetOrdinal("motor")),
 										Spotreba = result.GetDouble(result.GetOrdinal("spotreba")),
+										Obrazek = result.GetString(result.GetOrdinal("obrazek")),
 										Aktivni = result.GetBoolean(result.GetOrdinal("aktivni")),
 										PobockaId = result.GetInt32(result.GetOrdinal("pobocka_id"))
 									};
@@ -115,11 +116,11 @@ namespace DataLayer.TableDataGateways
 			errMsg = string.Empty;
 
 			string sqlInsert =
-				"INSERT INTO vozidlo(znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, aktivni, pobocka_id) " +
-				"VALUES (@znacka, @model, @spz, @cena_za_den, @pocet_dveri, @motor, @spotreba, @aktivni, @pobocka_id)";
+				"INSERT INTO vozidlo(znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, obrazek, aktivni, pobocka_id) " +
+				"VALUES (@znacka, @model, @spz, @cena_za_den, @pocet_dveri, @motor, @spotreba, @obrazek, @aktivni, @pobocka_id)";
 			string sqlUpdate =
 				"UPDATE vozidlo SET znacka=@znacka, model=@model, spz=@spz, cena_za_den=@cena_za_den, pocet_dveri=@pocet_dveri, motor=@motor, spotreba=@spotreba, " +
-				"aktivni=@aktivni, pobocka_id=@pobocka_id WHERE id=@id";
+				"obrazek=@obrazek, aktivni=@aktivni, pobocka_id=@pobocka_id WHERE id=@id";
 
 			//Vlozeni nebo aktualizace zamestnance v ulozisti
 			try
@@ -142,6 +143,7 @@ namespace DataLayer.TableDataGateways
 							sqlCmd.Parameters.AddWithValue("@pocet_dveri", seznam[i].PocetDveri);
 							sqlCmd.Parameters.AddWithValue("@motor", seznam[i].Motor);
 							sqlCmd.Parameters.AddWithValue("@spotreba", seznam[i].Spotreba);
+							sqlCmd.Parameters.AddWithValue("@obrazek", seznam[i].Obrazek);
 							sqlCmd.Parameters.AddWithValue("@aktivni", seznam[i].Aktivni);
 							sqlCmd.Parameters.AddWithValue("@pobocka_id", seznam[i].PobockaId);
 							try
@@ -190,11 +192,11 @@ namespace DataLayer.TableDataGateways
 			errMsg = string.Empty;
 
 			string sqlInsert =
-				"SET NOCOUNT ON; INSERT INTO vozidlo(znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, aktivni, pobocka_id) " +
-				"VALUES (@znacka, @model, @spz, @cena_za_den, @pocet_dveri, @motor, @spotreba, @aktivni, @pobocka_id); SELECT SCOPE_IDENTITY(); SET NOCOUNT OFF;";
+				"SET NOCOUNT ON; INSERT INTO vozidlo(znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, obrazek, aktivni, pobocka_id) " +
+				"VALUES (@znacka, @model, @spz, @cena_za_den, @pocet_dveri, @motor, @spotreba, @obrazek, @aktivni, @pobocka_id); SELECT SCOPE_IDENTITY(); SET NOCOUNT OFF;";
 			string sqlUpdate =
 				"UPDATE vozidlo SET znacka=@znacka, model=@model, spz=@spz, cena_za_den=@cena_za_den, pocet_dveri=@pocet_dveri, motor=@motor, spotreba=@spotreba, " +
-				"aktivni=@aktivni, pobocka_id=@pobocka_id WHERE id=@id";
+				"obrazek=@obrazek, aktivni=@aktivni, pobocka_id=@pobocka_id WHERE id=@id";
 			var sql = entity.Id < 0 ? sqlInsert : sqlUpdate;
 
 			//Vlozeni nebo aktualizace zamestnance v ulozisti
@@ -215,6 +217,7 @@ namespace DataLayer.TableDataGateways
 						sqlCmd.Parameters.AddWithValue("@pocet_dveri", entity.PocetDveri);
 						sqlCmd.Parameters.AddWithValue("@motor", entity.Motor);
 						sqlCmd.Parameters.AddWithValue("@spotreba", entity.Spotreba);
+						sqlCmd.Parameters.AddWithValue("@obrazek", entity.Obrazek);
 						sqlCmd.Parameters.AddWithValue("@aktivni", entity.Aktivni);
 						sqlCmd.Parameters.AddWithValue("@pobocka_id", entity.PobockaId);
 						try
@@ -339,7 +342,7 @@ namespace DataLayer.TableDataGateways
 				try
 				{
 					string sql =
-						"SELECT znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, aktivni, pobocka_id FROM vozidlo WHERE id=@id";
+						"SELECT znacka, model, spz, cena_za_den, pocet_dveri, motor, spotreba, obrazek, aktivni, pobocka_id FROM vozidlo WHERE id=@id";
 
 					SqlCommand sqlCmd = Database.Instance.CreateCommand(sql);
 					try
@@ -362,6 +365,7 @@ namespace DataLayer.TableDataGateways
 										PocetDveri = result.GetInt32(result.GetOrdinal("pocet_dveri")),
 										Motor = result.GetString(result.GetOrdinal("motor")),
 										Spotreba = result.GetFloat(result.GetOrdinal("spotreba")),
+										Obrazek = result.GetString(result.GetOrdinal("obrazek")),
 										Aktivni = result.GetBoolean(result.GetOrdinal("aktivni")),
 										PobockaId = result.GetInt32(result.GetOrdinal("pobocka_id"))
 									};

@@ -20,6 +20,7 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th scope="col"></th>
 				<th scope="col">Značka</th>
 				<th scope="col">Model</th>
 				<th scope="col">Motor</th>
@@ -32,6 +33,7 @@
 			@foreach (var vozidlo in Model.Vozidla)
 			{
 				<tr>
+					<td><img src="@vozidlo.Obrazek" width="100"/></td>
 					<td>@vozidlo.Znacka</td>
 					<td>@vozidlo.Model</td>
 					<td>@vozidlo.Motor</td>

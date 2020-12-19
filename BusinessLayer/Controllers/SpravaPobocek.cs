@@ -27,12 +27,12 @@ namespace BusinessLayer.Controllers
         /// <summary>
         /// Seznam vsech poboček
         /// </summary>
-        public List<Pobocka> Pobocky { get; }
+        public List<Pobocka> SeznamPobocek { get; }
 
         /// <summary>
         /// Celkový počet zaměstnanců
         /// </summary>
-        public int CelkovyPocetPobocek => Pobocky.Count;
+        public int CelkovyPocetPobocek => SeznamPobocek.Count;
 
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BusinessLayer.Controllers
         /// </summary>
         private SpravaPobocek()
         {
-            Pobocky = new List<Pobocka>();
+            SeznamPobocek = new List<Pobocka>();
             NacteniZUloziste();
         }
 
@@ -52,7 +52,7 @@ namespace BusinessLayer.Controllers
 				{
 					foreach (var item in lstPobocky)
 					{
-						Pobocky.Add(new Pobocka()
+						SeznamPobocek.Add(new Pobocka()
 						{
 							Id = item.Id,
 							Mesto = item.Mesto,
@@ -77,10 +77,10 @@ namespace BusinessLayer.Controllers
             //Pomocny seznam pro ukladani
             List<PobockaDTO> lstPobocky = new List<PobockaDTO>();
 
-            var maxID = Pobocky.Max(r => r.Id) + 1;
+            var maxID = SeznamPobocek.Max(r => r.Id) + 1;
 
             //Naplneni zamestnancu
-            foreach (var item in Pobocky)
+            foreach (var item in SeznamPobocek)
             {
                 lstPobocky.Add(
                     new PobockaDTO()
@@ -106,7 +106,7 @@ namespace BusinessLayer.Controllers
         /// <param name="pobocka"> Objek třídy zaměstnanec</param>
         public void AddPobocka(Pobocka pobocka)
         {
-            Pobocky.Add(pobocka);
+            SeznamPobocek.Add(pobocka);
         }
 
         /// <summary>
@@ -121,34 +121,11 @@ namespace BusinessLayer.Controllers
                 return null;
 
             //Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
-            Pobocka pobocka = Pobocky.Find(x => x.Id == id);
+            Pobocka pobocka = SeznamPobocek.Find(x => x.Id == id);
             if (pobocka != null)
                 return pobocka;
             else
                 return null;
-
-            //Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
-
-            /*if (VozidloGW.Instance.Find(id, out VozidloDTO vozidloDTO, out string errMsg))
-            {
-                return new Vozidlo()
-                {
-                    Id = vozidloDTO.Id,
-                    Znacka = vozidloDTO.Znacka,
-                    Model = vozidloDTO.Model,
-                    SPZ = vozidloDTO.SPZ,
-                    CenaZaDen = vozidloDTO.CenaZaDen,
-                    PocetDveri = vozidloDTO.PocetDveri,
-                    Motor = vozidloDTO.Motor,
-                    Spotreba = vozidloDTO.Spotreba,
-                    Aktivni = vozidloDTO.Aktivni,
-                    Pobocka = new Pobocka() { Id = vozidloDTO.PobockaId }
-                };
-            }
-            else
-            {
-                throw new DataException($"Nastala chyba při vyhledání zaměstnance v uložišti\n {errMsg}");
-            }*/
         }
     }
 }

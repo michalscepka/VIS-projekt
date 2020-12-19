@@ -60,6 +60,7 @@ namespace WebApp.Pages
                 SelectedRezervace.DatumKonceRezervace = originalKonecDate;
                 Vozidla = SpravaVozidel.Instance.SeznamVozidel;
                 Vozidla = Vozidla.Where(x => VozidlaHelper.Instance.IsVehicleFree(x, SelectedRezervace.DatumZacatkuRezervace, DatumProdlouzeni));
+                Vozidla = Vozidla.Where(x => x.Aktivni);
                 Status = 2;
             }
         }

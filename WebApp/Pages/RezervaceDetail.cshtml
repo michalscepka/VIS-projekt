@@ -6,18 +6,28 @@
 <h3>Rezervace:</h3>
 <h4>@Model.SelectedRezervace.Vozidlo.Znacka @Model.SelectedRezervace.Vozidlo.Model</h4>
 
-<ul>
-	<li>Motor: @Model.SelectedRezervace.Vozidlo.Motor</li>
-	<li>Počet dveří: @Model.SelectedRezervace.Vozidlo.PocetDveri</li>
-	<li>Spotřeba: @Model.SelectedRezervace.Vozidlo.Spotreba l/100 km</li>
-	<li>@Model.SelectedRezervace.Vozidlo.CenaZaDen Kč/den</li>
-</ul>
+
+<div class="row">
+	<div class="col-lg-3 m-4">
+		<img src="@Model.SelectedRezervace.Vozidlo.Obrazek" style="max-width:300px" />
+	</div>
+	<div class="col-lg-6 m-4">
+		<ul>
+			<li>Motor: @Model.SelectedRezervace.Vozidlo.Motor</li>
+			<li>Počet dveří: @Model.SelectedRezervace.Vozidlo.PocetDveri</li>
+			<li>Spotřeba: @Model.SelectedRezervace.Vozidlo.Spotreba l/100 km</li>
+			<li>@Model.SelectedRezervace.Vozidlo.CenaZaDen Kč/den</li>
+			<li>Dostupné na pobočce: @Model.SelectedRezervace.Vozidlo.Pobocka.Mesto</li>
+			<li>@Model.SelectedRezervace.Vozidlo.CenaZaDen Kč/den</li>
+		</ul>
+	</div>
+</div>
 
 <p style="font-weight:bold">od: @Model.SelectedRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy") do: @Model.SelectedRezervace.DatumKonceRezervace.ToString("dd.MM.yyyy")</p>
 
 <form method="post" asp-page-handler="Prodlouzit" asp-route-id="@Model.SelectedRezervace.Id">
 	<label>Prodloužit do:</label>
-	<input type="date" name="DatumProdlouzeni" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+	<input type="date" name="DatumProdlouzeni" min="@Model.SelectedRezervace.DatumKonceRezervace.AddDays(1).ToString("yyyy-MM-dd")">
 	<input type="submit" class="btn btn-primary" value="Prodloužit">
 </form>
 
@@ -40,7 +50,7 @@ else if (Model.Status == 2)
 	<p>Můžete <strong>změnit čas</strong> nebo <strong>vybrat jiný vůz</strong>, který je ve Vašem termínu volný.</p>
 	<br />
 	<p>
-		Vozidla na pobočce @Model.SelectedRezervace.Vozidlo.Pobocka.Mesto volná 
+		Volná vozidla na pobočce @Model.SelectedRezervace.Vozidlo.Pobocka.Mesto  
 		od: <strong>@Model.SelectedRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy")</strong>
 		do: <strong>@Model.DatumProdlouzeni.ToString("dd.MM.yyyy")</strong>:
 	</p>
@@ -74,6 +84,10 @@ else if (Model.Status == 2)
 				}
 			</tbody>
 		</table>
+	}
+	else
+	{
+		<p><strong>Žádná</strong></p>
 	}
 }
 else if (Model.Status == 3)

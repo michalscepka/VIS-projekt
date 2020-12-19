@@ -18,6 +18,7 @@ namespace WebApp.Pages
         public VozidlaFiltrModel()
 		{
             Vozidla = VozidlaHelper.Instance.GetVozidla();
+            Vozidla = Vozidla.Where(x => x.Aktivni);
         }
 
         public void OnGet()

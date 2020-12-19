@@ -68,6 +68,7 @@ namespace BusinessLayer.Controllers
 							PocetDveri = item.PocetDveri,
 							Motor = item.Motor,
 							Spotreba = item.Spotreba,
+							Obrazek = item.Obrazek,
 							Aktivni = item.Aktivni,
 							Pobocka = new Pobocka() { Id = item.PobockaId }
 						});
@@ -96,6 +97,7 @@ namespace BusinessLayer.Controllers
 				PocetDveri = vozidlo.PocetDveri,
 				Motor = vozidlo.Motor,
 				Spotreba = vozidlo.Spotreba,
+				Obrazek = vozidlo.Obrazek,
 				Aktivni = vozidlo.Aktivni,
 				PobockaId = vozidlo.Pobocka.Id
 			};
@@ -145,6 +147,7 @@ namespace BusinessLayer.Controllers
 					PocetDveri = item.PocetDveri,
 					Motor = item.Motor,
 					Spotreba = item.Spotreba,
+					Obrazek = item.Obrazek,
 					Aktivni = item.Aktivni,
 					PobockaId = item.Pobocka.Id
 				});
@@ -186,6 +189,7 @@ namespace BusinessLayer.Controllers
 					PocetDveri = vozidloDTO.PocetDveri,
 					Motor = vozidloDTO.Motor,
 					Spotreba = vozidloDTO.Spotreba,
+					Obrazek = vozidloDTO.Obrazek,
 					Aktivni = vozidloDTO.Aktivni,
 					Pobocka = new Pobocka() { Id = vozidloDTO.PobockaId }
 				};
@@ -227,6 +231,7 @@ namespace BusinessLayer.Controllers
 				updatedVozidlo.PocetDveri = vozidlo.PocetDveri;
 				updatedVozidlo.Motor = vozidlo.Motor;
 				updatedVozidlo.Spotreba = vozidlo.Spotreba;
+				updatedVozidlo.Obrazek = vozidlo.Obrazek;
 				updatedVozidlo.Aktivni = vozidlo.Aktivni;
 				updatedVozidlo.Pobocka.Id = vozidlo.Pobocka.Id;
 			}
