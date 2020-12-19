@@ -3,6 +3,7 @@ using BusinessLayer.Controllers;
 using PresentationLayer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,7 +38,7 @@ namespace DesktopApp
 			hintLabel.Visibility = Visibility.Hidden;
 			VozidloNaVyrazeni = null;
 
-			listView.ItemsSource = SpravaVozidel.Instance.SeznamVozidel;
+			listView.ItemsSource = VozidlaHelper.Instance.GetVozidla();
 
 			view = (CollectionView)CollectionViewSource.GetDefaultView(listView.ItemsSource);
 			view.Filter = VehiclesFilter;
@@ -80,25 +81,15 @@ namespace DesktopApp
 			Vozidlo selectedVozidlo = (listView.SelectedItem as Vozidlo);
 
 			//check jestli nema vybrane auto objednavky ve stejny cas jako odebirane
+			List<Rezervace> rezervaceNahradniVozidlo = SpravaRezervaci.Instance.SeznamRezervaci.Where(x => x.Vozidlo.Id == selectedVozidlo.Id).ToList();
+			List<Rezervace> rezervaceVyrazovaneVozidlo = SpravaRezervaci.Instance.SeznamRezervaci.Where(x => x.Vozidlo.Id == VozidloNaVyrazeni.Id).ToList();
 
-			List<Rezervace> rezervaceProNahradniVozidlo = new List<Rezervace>();
-			List<Rezervace> rezervaceProVyrazovaneVozidlo = new List<Rezervace>();
-
-			foreach (Rezervace rezervace in SpravaRezervaci.Instance.SeznamRezervaci)
+			for (int i = 0; i < rezervaceNahradniVozidlo.Count; i++)
 			{
-				if (rezervace.Vozidlo.Id == selectedVozidlo.Id)
-					rezervaceProNahradniVozidlo.Add(rezervace);
-				else if (rezervace.Vozidlo.Id == VozidloNaVyrazeni.Id)
-					rezervaceProVyrazovaneVozidlo.Add(rezervace);
-			}
-
-			for (int i = 0; i < rezervaceProNahradniVozidlo.Count; i++)
-			{
-				for(int j = 0; j < rezervaceProVyrazovaneVozidlo.Count; j++)
+				for(int j = 0; j < rezervaceVyrazovaneVozidlo.Count; j++)
 				{
-					//TODO nepokryva to objednavky, ktere trvaji vice dni
-					if(rezervaceProNahradniVozidlo[i].DatumZacatkuRezervace == rezervaceProVyrazovaneVozidlo[j].DatumZacatkuRezervace ||
-						rezervaceProNahradniVozidlo[i].DatumKonceRezervace == rezervaceProVyrazovaneVozidlo[j].DatumKonceRezervace)
+					if (!(rezervaceNahradniVozidlo[i].DatumKonceRezervace < rezervaceVyrazovaneVozidlo[j].DatumZacatkuRezervace ||
+						rezervaceNahradniVozidlo[i].DatumZacatkuRezervace > rezervaceVyrazovaneVozidlo[j].DatumKonceRezervace))
 					{
 						hintLabel.Content = "Kolize v objednavkach.";
 						return;

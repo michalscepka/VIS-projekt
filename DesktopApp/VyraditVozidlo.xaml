@@ -30,6 +30,8 @@
 					<GridViewColumn Header="Motor" DisplayMemberBinding="{Binding Motor}" />
 					<GridViewColumn Header="Spotřeba" DisplayMemberBinding="{Binding Spotreba}" />
 					<GridViewColumn Header="Aktivní" DisplayMemberBinding="{Binding Aktivni}" />
+					<GridViewColumn Header="Pobočka město" DisplayMemberBinding="{Binding Pobocka.Mesto}" />
+					<GridViewColumn Header="Ulice" DisplayMemberBinding="{Binding Pobocka.Ulice}" />
 				</GridView>
 			</ListView.View>
 		</ListView>
