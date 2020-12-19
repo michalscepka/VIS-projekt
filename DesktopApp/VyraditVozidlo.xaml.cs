@@ -23,7 +23,6 @@ namespace DesktopApp
 	{
 		private CollectionView view;
 		private Vozidlo VozidloNaVyrazeni;
-		private readonly EmailHelper emailHelper = new EmailHelper();
 
 		public VyraditVozidlo()
 		{
@@ -132,7 +131,7 @@ namespace DesktopApp
 		{
 			selectedVozidlo.Aktivni = false;
 			SpravaVozidel.Instance.UpdateVozidlo(selectedVozidlo);
-			emailHelper.SendEmails();
+			EmailHelper.Instance.SendEmails();
 		}
 
 		private bool VehiclesFilter(object item)

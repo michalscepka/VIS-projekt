@@ -123,6 +123,9 @@ namespace CMDTest
 
 			SpravaPobocek.Instance.SaveAll();
 			Console.WriteLine(SpravaPobocek.Instance.CelkovyPocetPobocek);*/
+
+			//Console.WriteLine(SpravaVozidel.Instance.FindVozidlo(0).Model);
+
 		}
 	}
 }

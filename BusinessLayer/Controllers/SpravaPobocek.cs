@@ -108,5 +108,47 @@ namespace BusinessLayer.Controllers
         {
             Pobocky.Add(pobocka);
         }
+
+        /// <summary>
+		/// Vyhledani zaměstnance podle jeho ID
+		/// </summary>
+		/// <param name="id">ID zaměstnance</param>
+		/// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
+		public Pobocka FindPobocka(int id)
+        {
+            //Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
+            if (id < 0)
+                return null;
+
+            //Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+            Pobocka pobocka = Pobocky.Find(x => x.Id == id);
+            if (pobocka != null)
+                return pobocka;
+            else
+                return null;
+
+            //Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
+
+            /*if (VozidloGW.Instance.Find(id, out VozidloDTO vozidloDTO, out string errMsg))
+            {
+                return new Vozidlo()
+                {
+                    Id = vozidloDTO.Id,
+                    Znacka = vozidloDTO.Znacka,
+                    Model = vozidloDTO.Model,
+                    SPZ = vozidloDTO.SPZ,
+                    CenaZaDen = vozidloDTO.CenaZaDen,
+                    PocetDveri = vozidloDTO.PocetDveri,
+                    Motor = vozidloDTO.Motor,
+                    Spotreba = vozidloDTO.Spotreba,
+                    Aktivni = vozidloDTO.Aktivni,
+                    Pobocka = new Pobocka() { Id = vozidloDTO.PobockaId }
+                };
+            }
+            else
+            {
+                throw new DataException($"Nastala chyba při vyhledání zaměstnance v uložišti\n {errMsg}");
+            }*/
+        }
     }
 }

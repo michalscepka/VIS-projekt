@@ -1,0 +1,86 @@
+﻿@page
+@model WebApp.Pages.RezervaceDetailModel
+@{
+}
+
+<h3>Rezervace:</h3>
+<h4>@Model.SelectedRezervace.Vozidlo.Znacka @Model.SelectedRezervace.Vozidlo.Model</h4>
+
+<ul>
+	<li>Motor: @Model.SelectedRezervace.Vozidlo.Motor</li>
+	<li>Počet dveří: @Model.SelectedRezervace.Vozidlo.PocetDveri</li>
+	<li>Spotřeba: @Model.SelectedRezervace.Vozidlo.Spotreba l/100 km</li>
+	<li>@Model.SelectedRezervace.Vozidlo.CenaZaDen Kč/den</li>
+</ul>
+
+<p style="font-weight:bold">od: @Model.SelectedRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy") do: @Model.SelectedRezervace.DatumKonceRezervace.ToString("dd.MM.yyyy")</p>
+
+<form method="post" asp-page-handler="Prodlouzit" asp-route-id="@Model.SelectedRezervace.Id">
+	<label>Prodloužit do:</label>
+	<input type="date" name="DatumProdlouzeni" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+	<input type="submit" class="btn btn-primary" value="Prodloužit">
+</form>
+
+
+<br />
+
+@if (Model.Status == 1)
+{
+	<p>Rezervace byla prodloužena.</p>
+	<p>
+		Rezervováno od: <strong>@Model.SelectedRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy")</strong>
+		do: <strong>@Model.SelectedRezervace.DatumKonceRezervace.ToString("dd.MM.yyyy")</strong>
+	</p>
+	<p>Nová cena: <strong>@Model.SelectedRezervace.Cena Kč</strong> a kauce: <strong>@Model.SelectedRezervace.Kauce Kč</strong>.</p>
+	<p>Více informací dostanete v e-mailu.</p>
+}
+else if (Model.Status == 2)
+{
+	<p>Omlouáme se ale pro Vámi vybraný čas již objednávku nelze prodloužit.</p>
+	<p>Můžete <strong>změnit čas</strong> nebo <strong>vybrat jiný vůz</strong>, který je ve Vašem termínu volný.</p>
+	<br />
+	<p>
+		Vozidla na pobočce @Model.SelectedRezervace.Vozidlo.Pobocka.Mesto volná 
+		od: <strong>@Model.SelectedRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy")</strong>
+		do: <strong>@Model.DatumProdlouzeni.ToString("dd.MM.yyyy")</strong>:
+	</p>
+
+	@if (Model.Vozidla.Count() > 0)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Značka</th>
+					<th scope="col">Model</th>
+					<th scope="col">Motor</th>
+					<th scope="col">Cena/Den</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var vozidlo in Model.Vozidla)
+				{
+					<tr>
+						<td>@vozidlo.Znacka</td>
+						<td>@vozidlo.Model</td>
+						<td>@vozidlo.Motor</td>
+						<td>@vozidlo.CenaZaDen Kč</td>
+						<td>
+							<form method="post" asp-page-handler="Detail" asp-route-id="@vozidlo.Id">
+								<input type="submit" class="btn btn-primary" value="Detail">
+							</form>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
+else if (Model.Status == 3)
+{
+	<p>Zadejte prosím datum objednávky.</p>
+}
+else if (Model.Status == 4)
+{
+	<p>Datum začátku musí být nižší než datum konce.</p>
+}

@@ -94,13 +94,14 @@ namespace BusinessLayer.Controllers
 				VozidloId = rezervace.Vozidlo.Id
 			};
 
+			//TODO ziskat nove ID z databaze
 			if (RezervaceGW.Instance.InsertOrUpdate(rezervaceDTO, out string errMsg))
 			{
 				return true;
 			}
 			else
 			{
-				throw new DataException($"Nastala chyba při vložení/aktualizaci zamestnance v uložišti\n {errMsg}");
+				throw new DataException($"Nastala chyba při vložení/aktualizaci rezervace v uložišti\n {errMsg}");
 			}
 		}
 

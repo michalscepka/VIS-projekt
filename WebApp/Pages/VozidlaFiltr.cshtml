@@ -1,0 +1,51 @@
+﻿@page
+@model WebApp.Pages.VozidlaFiltrModel
+@{
+}
+
+<h3>Vozidla filtr</h3>
+
+<form method="post" asp-page-handler="Filter">
+	<label>Značka:</label>
+	<input type="text" name="ZnackaInput">
+	<label>Model:</label>
+	<input type="text" name="ModelInput">
+	<label>Město:</label>
+	<input type="text" name="MestoInput">
+	<input type="submit" class="btn btn-primary" value="Hledat">
+</form>
+
+@if (Model.Vozidla.Count() > 0)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Značka</th>
+				<th scope="col">Model</th>
+				<th scope="col">Motor</th>
+				<th scope="col">Pobočka</th>
+				<th scope="col">Cena/Den</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var vozidlo in Model.Vozidla)
+			{
+				<tr>
+					<td>@vozidlo.Znacka</td>
+					<td>@vozidlo.Model</td>
+					<td>@vozidlo.Motor</td>
+					<td>@vozidlo.Pobocka.Mesto</td>
+					<td>@vozidlo.CenaZaDen Kč</td>
+					<td>
+						<form method="post" asp-page-handler="Detail" asp-route-id="@vozidlo.Id">
+							<input type="submit" class="btn btn-primary" value="Detail">
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+<p>@Model.Message</p>

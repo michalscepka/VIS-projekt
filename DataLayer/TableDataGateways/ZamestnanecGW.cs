@@ -145,8 +145,7 @@ namespace DataLayer.TableDataGateways
 							{
 								var result = Database.Instance.ExecuteNonQuery(sqlCmd);
 								//Pokud je návratová hodnota záporná nepovedlo se vložit/upravit
-								//TODO mozna '<='
-								if (result < 0)
+								if (result <= 0)
 									throw new DataException($"Nepovedlo se uložit Knihu ID:({seznam[i].Id})");
 							}
 							catch (Exception e)

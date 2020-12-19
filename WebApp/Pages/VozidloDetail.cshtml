@@ -1,0 +1,45 @@
+﻿@page
+@model WebApp.Pages.VozidloDetailModel
+@{
+}
+
+<h3>@Model.Vozidlo.Znacka @Model.Vozidlo.Model</h3>
+
+<ul>
+	<li>Motor: @Model.Vozidlo.Motor</li>
+	<li>Počet dveří: @Model.Vozidlo.PocetDveri</li>
+	<li>Spotřeba: @Model.Vozidlo.Spotreba l/100 km</li>
+	<li>Dostupné na pobočce: @Model.Vozidlo.Pobocka.Mesto</li>
+	<li>@Model.Vozidlo.CenaZaDen Kč/den</li>
+</ul>
+
+<form method="post" asp-page-handler="Rezervovat" asp-route-id="@Model.Vozidlo.Id">
+	<label>od:</label>
+	<input type="date" name="DatumStart" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+	<label>do:</label>
+	<input type="date" name="DatumKonec" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+	<input type="submit" class="btn btn-primary" value="Rezervovat">
+</form>
+
+
+<br />
+
+@if (Model.Status == 1)
+{
+	<p>Rezervace byla úspěšně vytvořena s cenou: <strong>@Model.NewRezervace.Cena Kč</strong> a kaucí: <strong>@Model.NewRezervace.Kauce Kč</strong>.</p>
+	<p>Rezervováno od: <strong>@Model.NewRezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy")</strong> do: <strong>@Model.NewRezervace.DatumKonceRezervace.ToString("dd.MM.yyyy")</strong></p>
+	<p>Více informací dostanete v e-mailu.</p>
+}
+else if (Model.Status == 2)
+{
+	<p>Omlouáme se ale ve Vámi vybraném čase již vozidlo nelze rezervovat.</p>
+	<p>Můžete <strong>změnit čas</strong> nebo <strong><a asp-page="/VozidlaFiltr">vybrat jiný vůz</a></strong>.</p>
+}
+else if (Model.Status == 3)
+{
+	<p>Zadejte prosím datum objednávky.</p>
+}
+else if (Model.Status == 4)
+{
+<p>Datum začátku musí být nižší než datum konce.</p>
+}

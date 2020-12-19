@@ -27,13 +27,5 @@ namespace BusinessLayer.BO
 		public string CisloPlatebniKarty { get; set; }
 
 		public RidicskyPrukaz RidicskyPrukaz { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Zakaznik()
-		{
-
-		}
 	}
 }

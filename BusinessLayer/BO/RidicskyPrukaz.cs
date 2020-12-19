@@ -20,13 +20,5 @@ namespace BusinessLayer.BO
 		/// Datum platnosti řidičáku
 		/// </summary>
 		public DateTime DatumPlatnosti { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public RidicskyPrukaz()
-		{
-
-		}
 	}
 }

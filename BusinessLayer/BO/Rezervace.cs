@@ -34,13 +34,5 @@ namespace BusinessLayer.BO
 		public Zakaznik Zakaznik { get; set; }
 
 		public Vozidlo Vozidlo { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Rezervace()
-		{
-
-		}
 	}
 }

@@ -3,33 +3,15 @@
   <Pobocky>
     <PobockaDTO>
       <Id>1</Id>
-      <Mesto>Uzasne</Mesto>
-      <Ulice>uzasna</Ulice>
-      <Telefon>748932473298</Telefon>
+      <Mesto>Ostrava</Mesto>
+      <Ulice>Krásná ulice 10</Ulice>
+      <Telefon>748932473</Telefon>
     </PobockaDTO>
     <PobockaDTO>
       <Id>2</Id>
-      <Mesto>Uzasne</Mesto>
-      <Ulice>uzasna</Ulice>
-      <Telefon>fdafda</Telefon>
-    </PobockaDTO>
-    <PobockaDTO>
-      <Id>3</Id>
-      <Mesto>test</Mesto>
-      <Ulice>testuju</Ulice>
-      <Telefon>111111</Telefon>
-    </PobockaDTO>
-    <PobockaDTO>
-      <Id>4</Id>
-      <Mesto>test</Mesto>
-      <Ulice>testuju</Ulice>
-      <Telefon>111111</Telefon>
-    </PobockaDTO>
-    <PobockaDTO>
-      <Id>5</Id>
-      <Mesto>test</Mesto>
-      <Ulice>testuju</Ulice>
-      <Telefon>111111</Telefon>
+      <Mesto>Praha</Mesto>
+      <Ulice>Hezka ulice 20</Ulice>
+      <Telefon>879456132</Telefon>
     </PobockaDTO>
   </Pobocky>
 </PobockyStorage>

@@ -21,7 +21,7 @@ namespace DataLayer.TableDataGateways
 	{
         private static readonly object m_LockObj = new object();
         private static PobockaGW m_Instance;
-        private readonly string path = @"C:..\..\..\..\Uloziste\Pobocky.xml";
+        private readonly string path = @"C:\Users\Michal\Dropbox\School\5_semestr\VIS\Projekt\PujcovnaAutomobiluIS\Uloziste\Pobocky.xml";
 
         private PobockaGW()
 		{

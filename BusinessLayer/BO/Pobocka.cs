@@ -22,13 +22,5 @@ namespace BusinessLayer.BO
 		/// Telefon na pobočku
 		/// </summary>
 		public string Telefon { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Pobocka()
-		{
-
-		}
 	}
 }

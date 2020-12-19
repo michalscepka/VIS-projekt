@@ -22,13 +22,5 @@ namespace BusinessLayer.BO
 		public int HodinovaMzda { get; set; }
 
 		public Pobocka Pobocka { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Zamestnanec()
-		{
-
-		}
 	}
 }

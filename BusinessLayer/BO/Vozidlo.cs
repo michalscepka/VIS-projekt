@@ -52,13 +52,5 @@ namespace BusinessLayer.BO
 		public bool Aktivni { get; set; }
 
 		public Pobocka Pobocka { get; set; }
-
-		/// <summary>
-		/// Konstruktor třídy
-		/// </summary>
-		public Vozidlo()
-		{
-
-		}
 	}
 }

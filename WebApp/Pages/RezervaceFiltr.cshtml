@@ -1,0 +1,37 @@
+﻿@page
+@model WebApp.Pages.RezervaceFiltrModel
+@{
+}
+
+<h3>Moje rezervace</h3>
+
+@if (Model.RezervaceList.Count() > 0)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Vozidlo</th>
+				<th scope="col">Datum od - do</th>
+				<th scope="col">Cena</th>
+				<th scope="col">Kauce</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var rezervace in Model.RezervaceList)
+			{
+			<tr>
+				<td><strong>@rezervace.Vozidlo.Znacka @rezervace.Vozidlo.Model</strong> @rezervace.Vozidlo.Motor</td>
+				<td>@rezervace.DatumZacatkuRezervace.ToString("dd.MM.yyyy") - @rezervace.DatumKonceRezervace.ToString("dd.MM.yyyy")</td>
+				<td>@rezervace.Cena Kč</td>
+				<td>@rezervace.Kauce Kč</td>
+				<td>
+					<form method="post" asp-page-handler="Detail" asp-route-id="@rezervace.Id">
+						<input type="submit" class="btn btn-primary" value="Prodloužit rezervaci">
+					</form>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+}
