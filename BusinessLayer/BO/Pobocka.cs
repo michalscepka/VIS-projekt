@@ -9,13 +9,19 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class Pobocka
 	{
+		/// <summary>
+		/// ID pobočky v databázi
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Adresa pobočky
+		/// Město pobočky
 		/// </summary>
 		public string Mesto { get; set; }
 
+		/// <summary>
+		/// Ulice pobočky
+		/// </summary>
 		public string Ulice { get; set; }
 
 		/// <summary>

@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +15,13 @@ namespace WebApp.Pages
         public IEnumerable<Vozidlo> Vozidla { get; set; }
         public string Message { get; set; }
 
+        [BindProperty]
+        public string ZnackaInput { get; set; }
+        [BindProperty]
+        public string ModelInput { get; set; }
+        [BindProperty]
+        public string MestoInput { get; set; }
+
         public VozidlaFiltrModel()
 		{
             Vozidla = VozidlaHelper.Instance.GetVozidla();
@@ -25,12 +32,9 @@ namespace WebApp.Pages
         {
         }
 
-        [BindProperty]
-        public string ZnackaInput { get; set; }
-        [BindProperty]
-        public string ModelInput { get; set; }
-        [BindProperty]
-        public string MestoInput { get; set; }
+        /// <summary>
+		/// Filtruje vozidla
+		/// </summary>
         public void OnPostFilter()
 		{
             if (!string.IsNullOrEmpty(ZnackaInput))
@@ -40,9 +44,14 @@ namespace WebApp.Pages
             if (!string.IsNullOrEmpty(MestoInput))
                 Vozidla = Vozidla.Where(x => x.Pobocka.Mesto.ToLower().Contains(MestoInput.ToLower()));
             if (Vozidla.Count() <= 0)
-                Message = string.Format("Omlouv·me se ale pro hledan˝ v˝raz '{0} {1} {2}' jsme nenaöli û·dnÈ vozidlo.", ZnackaInput, ModelInput, MestoInput);
+                Message = string.Format("Omlouv√°me se ale pro hledan√Ω v√Ωraz '{0} {1} {2}' jsme nena≈°li ≈æ√°dn√© vozidlo.", ZnackaInput, ModelInput, MestoInput);
 		}
 
+        /// <summary>
+		/// P≈ôesmƒõruje na str√°nku VozidloDetail
+		/// </summary>
+        /// <param name="id">ID vozidla</param>
+        /// <returns>Str√°nka VozidloDetail</returns>
         public RedirectToPageResult OnPostDetail(int id)
         {
             return new RedirectToPageResult("VozidloDetail", new { id });

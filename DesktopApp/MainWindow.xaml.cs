@@ -25,6 +25,9 @@ namespace DesktopApp
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Kliknutí na tlačítko Vyřadit vozidlo v hlavní nabídce
+		/// </summary>
 		private void VyraditVozidlo_Click(object sender, RoutedEventArgs e)
 		{
 			Content.Content = new VyraditVozidlo();

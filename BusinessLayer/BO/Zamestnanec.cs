@@ -9,10 +9,8 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class Zamestnanec : Uzivatel
 	{
-		public int Id { get; set; }
-
 		/// <summary>
-		/// Datum přijetí do zaměstnání
+		/// Datum nástupu do zaměstnání
 		/// </summary>
 		public DateTime DatumNastupu { get; set; }
 
@@ -21,6 +19,9 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public int HodinovaMzda { get; set; }
 
+		/// <summary>
+		/// Pobočka na které zaměstnanec pracuje
+		/// </summary>
 		public Pobocka Pobocka { get; set; }
 	}
 }

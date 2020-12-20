@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace DataLayer.TableDataGateways
 {
     /// <summary>
-    /// Pomocná třída pro zapouzdření seznamu Zamestnancu
+    /// Pomocná třída pro zapouzdření seznamu poboček
     /// </summary>
     [Serializable]
     [XmlRoot("PobockyStorage")]
@@ -71,9 +71,9 @@ namespace DataLayer.TableDataGateways
         }
 
         /// <summary>
-        /// Nacteni vsech zamestnancu z uloziste
+        /// Načtení všech poboček z úložiště
         /// </summary>
-        /// <param name="pobocky">Seznam zaměstnanců</param>
+        /// <param name="pobocky">Seznam poboček</param>
         /// <param name="msgErr">Chybové hlášení</param>
         /// <returns>True: operace se povedla, False: nastala chyba</returns>
         public bool Load(out List<PobockaDTO> pobocky, out string msgErr)

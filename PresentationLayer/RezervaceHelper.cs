@@ -23,6 +23,16 @@ namespace PresentationLayer
 			}
 		}
 
+		private RezervaceHelper()
+		{
+
+		}
+
+		/// <summary>
+		/// Vrátí rezervace patřící zákazníkovi
+		/// </summary>
+		/// <param name="zakaznikId">ID zákazníka</param>
+		/// <returns>List rezervací</returns>
 		public IEnumerable<Rezervace> GetRezervace(int zakaznikId)
 		{
 			IEnumerable<Rezervace> rezervaceList = SpravaRezervaci.Instance.SeznamRezervaci;
@@ -35,6 +45,11 @@ namespace PresentationLayer
 			return rezervaceList;
 		}
 
+		/// <summary>
+		/// Zjistí jestli může vytvořit rezervaci
+		/// </summary>
+		/// <param name="newRezervace">Nová rezervace</param>
+		/// <returns>TRUE - může vytvořit rezervaci, FALSE - nemůže</returns>
 		public bool CanCreateReservation(Rezervace newRezervace)
 		{
 			IEnumerable<Rezervace> rezervaceProZvoleneVozidlo = SpravaRezervaci.Instance.SeznamRezervaci.Where(x => x.Vozidlo.Id == newRezervace.Vozidlo.Id).ToList();
@@ -46,6 +61,11 @@ namespace PresentationLayer
 			return true;
 		}
 
+		/// <summary>
+		/// Zjistí jestli může prodloužit rezervaci
+		/// </summary>
+		/// <param name="selectedRezervace">Vybraná rezervace</param>
+		/// <returns>TRUE - může prodloužit rezervaci, FALSE - nemůže</returns>
 		public bool CanExtendReservation(Rezervace selectedRezervace)
 		{
 			IEnumerable<Rezervace> rezervaceProZvoleneVozidlo = SpravaRezervaci.Instance.SeznamRezervaci.Where(x => x.Vozidlo.Id == selectedRezervace.Vozidlo.Id).ToList();

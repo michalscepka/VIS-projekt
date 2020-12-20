@@ -20,19 +20,22 @@ namespace PresentationLayer
             }
         }
 
-        /// <summary>
-        /// Objekt spravy zamestnancu
-        /// </summary>
         private EmailHelper()
-        {
+		{
 
-        }
+		}
 
+        /// <summary>
+		/// Poslání emailů
+		/// </summary>
         public void SendEmails()
 		{
 
 		}
 
+        /// <summary>
+		/// Poslání emailu
+		/// </summary>
         public void SendEmail()
 		{
 

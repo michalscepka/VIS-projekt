@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BusinessLayer.Controllers
 {
+	/// <summary>
+	/// Třída zodpovědná za správu zákazníků
+	/// </summary>
 	public class SpravaZakazniku
 	{
 		/// <summary>
@@ -26,11 +29,6 @@ namespace BusinessLayer.Controllers
 		public List<Zakaznik> SeznamZakazniku { get; }
 
 		/// <summary>
-		/// Celkový počet včech zamestnancu v systému
-		/// </summary>
-		public int CelkovyPocetZakazniku => SeznamZakazniku.Count;
-
-		/// <summary>
 		/// Statická vlastnost třídy, přes kterou se přistupuje ke třídě jako singletonu
 		/// </summary>
 		public static SpravaZakazniku Instance
@@ -46,7 +44,7 @@ namespace BusinessLayer.Controllers
 
 		/// <summary>
 		/// Privátní konstruktor, třídu nelze vytvořit jinak, než přes přístup na vlastnost Instance
-		/// V rámci konstruktoru načte všechny pobocky z uložiště
+		/// V rámci konstruktoru načte všechny zákazníky z uložiště
 		/// </summary>
 		private SpravaZakazniku()
 		{
@@ -81,9 +79,10 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vložení nebo aktualizace objektu zakaznik v uložišti
+		/// Vložení nebo aktualizace objektu zákazník v úložišti
 		/// </summary>
 		/// <param name="zakaznik"></param>
+		/// <returns>True, pokud se insert/update povedl</returns>
 		private bool InsertOrUpdate(Zakaznik zakaznik)
 		{
 			ZakaznikDTO zakaznikDTO = new ZakaznikDTO()
@@ -111,7 +110,7 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Smazání zaměstnance z Uložiště
+		/// Smazání zákazníka z úložiště
 		/// </summary>
 		/// <param name="zakaznik">Objekt, který chceme smazat</param>
 		/// <returns>True, pokud se povedlo smazání</returns>
@@ -128,7 +127,7 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Uložení všech zaměstnanců
+		/// Uložení všech zákazníků
 		/// </summary>
 		public void SaveAllData()
 		{
@@ -157,23 +156,22 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vyhledani zaměstnance podle jeho ID
+		/// Vyhledání zákazníka podle jeho ID
 		/// </summary>
-		/// <param name="id">ID zaměstnance</param>
-		/// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
+		/// <param name="id">ID zákazníka</param>
+		/// <returns>Vrací instanci objektu zákazník nebo null pokud se nic nenašlo</returns>
 		public Zakaznik FindZakaznik(int id)
 		{
-			//Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
+			//Zaporne ID značí neuložený nový záznam
 			if (id < 0)
 				return null;
 
-			//Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+			//Ověříme, že nemáme objekt již v načteném seznamu, pokud ano tak tento objekt vrátíme
 			Zakaznik zakaznik = SeznamZakazniku.Find(x => x.Id == id);
 			if (zakaznik != null)
 				return zakaznik;
 
 			//Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
-
 			if (ZakaznikGW.Instance.Find(id, out ZakaznikDTO zakaznikDTO, out string errMsg))
 			{
 				return new Zakaznik()
@@ -197,27 +195,29 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vloží noveho zaměstnance do seznamu zaměstnanců a současně i do DB
+		/// Vloží nového zákazníka do seznamu zákazníků a současně i do DB
 		/// </summary>
-		/// <param name="zakaznik">Objekt zaměstnanec, ktrerý budeme vkládat</param>
+		/// <param name="zakaznik">Objekt zákazník, ktrerý budeme vkládat</param>
 		public void AddZakaznik(Zakaznik zakaznik)
 		{
+			//Vlozeni objektu do uloziste
 			if (InsertOrUpdate(zakaznik))
 			{
+				//Vlozeni objektu do seznamu
 				SeznamZakazniku.Add(zakaznik);
 			}
 		}
 
 		/// <summary>
-		/// Aktualizuje zaměstnance v uložišti
+		/// Aktualizuje zákazníka v úložišti
 		/// </summary>
-		/// <param name="zakaznik">Objekt zaměstnanec, který chceme aktualizovat v uložišti</param>
+		/// <param name="zakaznik">Objekt zákazník, který chceme aktualizovat v uložišti</param>
 		public void UpdateZakaznik(Zakaznik zakaznik)
 		{
 			//Aktualizace v ulozisti
 			if (InsertOrUpdate(zakaznik))
 			{
-				//Aktualizovat musime i objekt v seznamu
+				//Aktualizace v seznamu
 				Zakaznik updatedZakaznik = SeznamZakazniku.Find(x => x.Id == zakaznik.Id);
 				updatedZakaznik.Id = zakaznik.Id;
 				updatedZakaznik.Jmeno = zakaznik.Jmeno;
@@ -233,16 +233,15 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Smazání zaměstnance z uložiště i ze seznamu zaměstnanců
+		/// Smazání zákazníka z uložiště i ze seznamu zákazníků
 		/// </summary>
 		/// <param name="zakaznik"></param>
 		public void DeleteZakaznik(Zakaznik zakaznik)
 		{
-			//Mažeme objekt kniha v uložišti
+			//Smazani z uloziste
 			if (Delete(zakaznik))
 			{
-				//Musíme smazat i v seznamu knih
-				//SeznamZakazniku.Remove(zakaznik);
+				//Smazani ze seznamu
 				SeznamZakazniku.Remove(SeznamZakazniku.Find(x => x.Id == zakaznik.Id));
 			}
 		}

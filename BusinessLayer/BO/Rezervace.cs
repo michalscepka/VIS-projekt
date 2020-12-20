@@ -9,6 +9,9 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class Rezervace
 	{
+		/// <summary>
+		/// ID rezervace v databázi
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
@@ -31,8 +34,14 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public int Kauce { get; set; }
 
+		/// <summary>
+		/// Zákazník rezervace
+		/// </summary>
 		public Zakaznik Zakaznik { get; set; }
 
+		/// <summary>
+		/// Vozidlo rezervace
+		/// </summary>
 		public Vozidlo Vozidlo { get; set; }
 	}
 }

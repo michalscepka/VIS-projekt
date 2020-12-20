@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BusinessLayer.Controllers
 {
+	/// <summary>
+	/// Třída zodpovědná za správu rezervací
+	/// </summary>
 	public class SpravaRezervaci
 	{
 		/// <summary>
@@ -21,14 +24,9 @@ namespace BusinessLayer.Controllers
 		private static readonly object m_LockObj = new object();
 
 		/// <summary>
-		/// Seznam všech zamestnancu v systému
+		/// Seznam všech rezervací v systému
 		/// </summary>
 		public List<Rezervace> SeznamRezervaci { get; }
-
-		/// <summary>
-		/// Celkový počet včech zamestnancu v systému
-		/// </summary>
-		public int CelkovyPocetRezervaci => SeznamRezervaci.Count;
 
 		/// <summary>
 		/// Statická vlastnost třídy, přes kterou se přistupuje ke třídě jako singletonu
@@ -46,7 +44,7 @@ namespace BusinessLayer.Controllers
 
 		/// <summary>
 		/// Privátní konstruktor, třídu nelze vytvořit jinak, než přes přístup na vlastnost Instance
-		/// V rámci konstruktoru načte všechny pobocky z uložiště
+		/// V rámci konstruktoru načte všechny rezervace z uložiště
 		/// </summary>
 		private SpravaRezervaci()
 		{
@@ -78,9 +76,10 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vložení nebo aktualizace objektu rezervace v uložišti
+		/// Vložení nebo aktualizace objektu rezervace v úložišti
 		/// </summary>
 		/// <param name="rezervace"></param>
+		/// <returns>True, pokud se insert/update povedl</returns>
 		private bool InsertOrUpdate(Rezervace rezervace)
 		{
 			RezervaceDTO rezervaceDTO = new RezervaceDTO()
@@ -94,7 +93,6 @@ namespace BusinessLayer.Controllers
 				VozidloId = rezervace.Vozidlo.Id
 			};
 
-			//TODO ziskat nove ID z databaze
 			if (RezervaceGW.Instance.InsertOrUpdate(rezervaceDTO, out string errMsg))
 			{
 				rezervace.Id = rezervaceDTO.Id;
@@ -124,7 +122,7 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Uložení všech zaměstnanců
+		/// Uložení všech rezervací
 		/// </summary>
 		public void SaveAllData()
 		{
@@ -150,23 +148,22 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vyhledani zaměstnance podle jeho ID
+		/// Vyhledání rezervace podle jejího ID
 		/// </summary>
-		/// <param name="id">ID zaměstnance</param>
-		/// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
+		/// <param name="id">ID rezervace</param>
+		/// <returns>Vrací instanci objektu rezervace nebo null pokud se nic nenašlo</returns>
 		public Rezervace FindRezervace(int id)
 		{
-			//Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
+			//Zaporne ID značí neuložený nový záznam
 			if (id < 0)
 				return null;
 
-			//Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+			//Ověříme, že nemáme objekt již v načteném seznamu, pokud ano tak tento objekt vrátíme
 			Rezervace rezervace = SeznamRezervaci.Find(x => x.Id == id);
 			if (rezervace != null)
 				return rezervace;
 
 			//Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
-
 			if (RezervaceGW.Instance.Find(id, out RezervaceDTO rezervaceDTO, out string errMsg))
 			{
 				return new Rezervace()
@@ -187,19 +184,21 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vloží noveho zaměstnance do seznamu zaměstnanců a současně i do DB
+		/// Vloží novou rezervaci do seznamu rezervací a současně i do DB
 		/// </summary>
 		/// <param name="rezervace">Objekt zaměstnanec, ktrerý budeme vkládat</param>
 		public void AddRezervace(Rezervace rezervace)
 		{
+			//Vlozeni objektu do uloziste
 			if (InsertOrUpdate(rezervace))
 			{
+				//Vlozeni objektu do seznamu
 				SeznamRezervaci.Add(rezervace);
 			}
 		}
 
 		/// <summary>
-		/// Aktualizuje zaměstnance v uložišti
+		/// Aktualizuje rezervaci v úložišti i v seznamu rezervací
 		/// </summary>
 		/// <param name="rezervace">Objekt zaměstnanec, který chceme aktualizovat v uložišti</param>
 		public void UpdateRezervace(Rezervace rezervace)
@@ -207,7 +206,7 @@ namespace BusinessLayer.Controllers
 			//Aktualizace v ulozisti
 			if (InsertOrUpdate(rezervace))
 			{
-				//Aktualizovat musime i objekt v seznamu
+				//Aktualizace v seznamu
 				Rezervace updatedRezervace = SeznamRezervaci.Find(x => x.Id == rezervace.Id);
 				updatedRezervace.Id = rezervace.Id;
 				updatedRezervace.DatumZacatkuRezervace = rezervace.DatumZacatkuRezervace;
@@ -220,16 +219,15 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Smazání zaměstnance z uložiště i ze seznamu zaměstnanců
+		/// Smazání rezervace z úložiště i ze seznamu zaměstnanců
 		/// </summary>
 		/// <param name="rezervace"></param>
 		public void DeleteRezervace(Rezervace rezervace)
 		{
-			//Mažeme objekt kniha v uložišti
+			//Smazani z uloziste
 			if (Delete(rezervace))
 			{
-				//Musíme smazat i v seznamu knih
-				//SeznamRezervaci.Remove(rezervace);
+				//Smazani ze seznamu
 				SeznamRezervaci.Remove(SeznamRezervaci.Find(x => x.Id == rezervace.Id));
 			}
 		}

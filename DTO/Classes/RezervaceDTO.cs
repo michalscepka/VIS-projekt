@@ -6,6 +6,9 @@ namespace DTO.Classes
 {
 	public class RezervaceDTO
 	{
+		/// <summary>
+		/// Id začátku rezervace
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
@@ -28,8 +31,14 @@ namespace DTO.Classes
 		/// </summary>
 		public int Kauce { get; set; }
 
+		/// <summary>
+		/// Zákazník rezervace
+		/// </summary>
 		public int ZakaznikId { get; set; }
 
+		/// <summary>
+		/// Vozidlo rezervace
+		/// </summary>
 		public int VozidloId { get; set; }
 	}
 }

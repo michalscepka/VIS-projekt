@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BusinessLayer.Controllers
 {
+	/// <summary>
+	/// Třída zodpovědná za správu vozidel
+	/// </summary>
 	public class SpravaVozidel
 	{
 		/// <summary>
@@ -26,11 +29,6 @@ namespace BusinessLayer.Controllers
 		public List<Vozidlo> SeznamVozidel { get; }
 
 		/// <summary>
-		/// Celkový počet včech zamestnancu v systému
-		/// </summary>
-		public int CelkovyPocetVozidel => SeznamVozidel.Count;
-
-		/// <summary>
 		/// Statická vlastnost třídy, přes kterou se přistupuje ke třídě jako singletonu
 		/// </summary>
 		public static SpravaVozidel Instance
@@ -46,7 +44,7 @@ namespace BusinessLayer.Controllers
 
 		/// <summary>
 		/// Privátní konstruktor, třídu nelze vytvořit jinak, než přes přístup na vlastnost Instance
-		/// V rámci konstruktoru načte všechny pobocky z uložiště
+		/// V rámci konstruktoru načte všechny vozidla z uložiště
 		/// </summary>
 		private SpravaVozidel()
 		{
@@ -85,6 +83,7 @@ namespace BusinessLayer.Controllers
 		/// Vložení nebo aktualizace objektu vozidlo v uložišti
 		/// </summary>
 		/// <param name="vozidlo"></param>
+		/// <returns>True, pokud se insert/update povedl</returns>
 		private bool InsertOrUpdate(Vozidlo vozidlo)
 		{
 			VozidloDTO vozidloDTO = new VozidloDTO()
@@ -113,7 +112,7 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Smazání zaměstnance z Uložiště
+		/// Smazání vozidla z úložiště
 		/// </summary>
 		/// <param name="vozidlo">Objekt, který chceme smazat</param>
 		/// <returns>True, pokud se povedlo smazání</returns>
@@ -130,7 +129,7 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Uložení všech zaměstnanců
+		/// Uložení všech vozidel
 		/// </summary>
 		public void SaveAllData()
 		{
@@ -160,23 +159,22 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vyhledani zaměstnance podle jeho ID
+		/// Vyhledání vozidla podle jeho ID
 		/// </summary>
-		/// <param name="id">ID zaměstnance</param>
-		/// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
+		/// <param name="id">ID vozidla</param>
+		/// <returns>Vrací instanci objektu vozidlo nebo null pokud se nic nenašlo</returns>
 		public Vozidlo FindVozidlo(int id)
 		{
-			//Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
+			//Zaporne ID značí neuložený nový záznam
 			if (id < 0)
 				return null;
 
-			//Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+			//Ověříme, že nemáme objekt již v načteném seznamu, pokud ano tak tento objekt vrátíme
 			Vozidlo vozidlo = SeznamVozidel.Find(x => x.Id == id);
 			if (vozidlo != null)
 				return vozidlo;
 
 			//Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
-
 			if (VozidloGW.Instance.Find(id, out VozidloDTO vozidloDTO, out string errMsg))
 			{
 				return new Vozidlo()
@@ -201,27 +199,29 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Vloží noveho zaměstnance do seznamu zaměstnanců a současně i do DB
+		/// Vloží nové vozidlo do seznamu vozidel a současně i do DB
 		/// </summary>
-		/// <param name="vozidlo">Objekt zaměstnanec, ktrerý budeme vkládat</param>
+		/// <param name="vozidlo">Objekt vozidlo, ktrerý budeme vkládat</param>
 		public void AddVozidlo(Vozidlo vozidlo)
 		{
+			//Vlozeni objektu do uloziste
 			if (InsertOrUpdate(vozidlo))
 			{
+				//Vlozeni objektu do seznamu
 				SeznamVozidel.Add(vozidlo);
 			}
 		}
 
 		/// <summary>
-		/// Aktualizuje zaměstnance v uložišti
+		/// Aktualizuje vozidlo v úložišti
 		/// </summary>
-		/// <param name="vozidlo">Objekt zaměstnanec, který chceme aktualizovat v uložišti</param>
+		/// <param name="vozidlo">Objekt vozidlo, který chceme aktualizovat v uložišti</param>
 		public void UpdateVozidlo(Vozidlo vozidlo)
 		{
 			//Aktualizace v ulozisti
 			if (InsertOrUpdate(vozidlo))
 			{
-				//Aktualizovat musime i objekt v seznamu
+				//Aktualizace v seznamu
 				Vozidlo updatedVozidlo = SeznamVozidel.Find(x => x.Id == vozidlo.Id);
 				updatedVozidlo.Id = vozidlo.Id;
 				updatedVozidlo.Znacka = vozidlo.Znacka;
@@ -238,16 +238,15 @@ namespace BusinessLayer.Controllers
 		}
 
 		/// <summary>
-		/// Smazání zaměstnance z uložiště i ze seznamu zaměstnanců
+		/// Smazání vozidla z úložiště i ze seznamu zaměstnanců
 		/// </summary>
 		/// <param name="vozidlo"></param>
 		public void DeleteVozidlo(Vozidlo vozidlo)
 		{
-			//Mažeme objekt kniha v uložišti
+			//Smazani z uloziste
 			if (Delete(vozidlo))
 			{
-				//Musíme smazat i v seznamu knih
-				//SeznamVozidel.Remove(vozidlo);
+				//Smazani ze seznamu
 				SeznamVozidel.Remove(SeznamVozidel.Find(x => x.Id == vozidlo.Id));
 			}
 		}

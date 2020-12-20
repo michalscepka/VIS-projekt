@@ -32,12 +32,12 @@ namespace DTO.Classes
 		public int CenaZaDen { get; set; }
 
 		/// <summary>
-		/// Pocet dveri vozidla
+		/// Počet dveří vozidla
 		/// </summary>
 		public int PocetDveri { get; set; }
 
 		/// <summary>
-		/// Motor vozidla a jeho vykon
+		/// Motor vozidla a jeho výkon
 		/// </summary>
 		public string Motor { get; set; }
 
@@ -46,6 +46,9 @@ namespace DTO.Classes
 		/// </summary>
 		public double Spotreba { get; set; }
 
+		/// <summary>
+		/// Öbrázek vozidla
+		/// </summary>
 		public string Obrazek { get; set; }
 
 		/// <summary>

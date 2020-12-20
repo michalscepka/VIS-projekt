@@ -12,27 +12,27 @@ namespace DTO.Classes
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Jméno osoby
+		/// Jméno uživatele
 		/// </summary>
 		public string Jmeno { get; set; }
 
 		/// <summary>
-		/// Příjmení osoby
+		/// Příjmení uživatele
 		/// </summary>
 		public string Prijmeni { get; set; }
 
 		/// <summary>
-		/// Email osoby
+		/// Email uživatele
 		/// </summary>
 		public string Email { get; set; }
 
 		/// <summary>
-		/// Telefon osoby
+		/// Telefon uživatele
 		/// </summary>
 		public string Telefon { get; set; }
 
 		/// <summary>
-		/// Datum narození osoby
+		/// Datum narození uživatele
 		/// </summary>
 		public DateTime DatumNarozeni { get; set; }
 	}

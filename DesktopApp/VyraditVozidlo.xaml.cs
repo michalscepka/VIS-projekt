@@ -31,6 +31,9 @@ namespace DesktopApp
 			Create();
 		}
 
+		/// <summary>
+		/// Inicializace komponent
+		/// </summary>
 		private void Create()
 		{
 			vyraditButton.IsEnabled = true;
@@ -46,6 +49,9 @@ namespace DesktopApp
 			listView.SelectedIndex = -1;
 		}
 
+		/// <summary>
+		/// Kliknutí na tlačítko Vyřadit
+		/// </summary>
 		private void Vyradit_Click(object sender, RoutedEventArgs e)
 		{
 			if (listView.SelectedItem == null)
@@ -73,6 +79,9 @@ namespace DesktopApp
 			}
 		}
 
+		/// <summary>
+		/// Kliknutí na tlačítko Nahradit
+		/// </summary>
 		private void Nahradit_Click(object sender, RoutedEventArgs e)
 		{
 			if (listView.SelectedItem == null)
@@ -110,6 +119,10 @@ namespace DesktopApp
 			Create();
 		}
 
+		/// <summary>
+		/// Zjistí jestli můžeme vyřadit zvolené vozidlo
+		/// </summary>
+		/// <param name="selectedVozidlo">Objekt vozidlo</param>
 		private bool MuzeVyradit(Vozidlo selectedVozidlo)
 		{
 			foreach (Rezervace rezervace in SpravaRezervaci.Instance.SeznamRezervaci)
@@ -118,6 +131,10 @@ namespace DesktopApp
 			return true;
 		}
 
+		/// <summary>
+		/// Vyřadí zvolené vozidlo
+		/// </summary>
+		/// <param name="selectedVozidlo">Objekt vozidlo</param>
 		private void VyraditZvoleneVozidlo(Vozidlo selectedVozidlo)
 		{
 			selectedVozidlo.Aktivni = false;
@@ -125,6 +142,10 @@ namespace DesktopApp
 			EmailHelper.Instance.SendEmails();
 		}
 
+		/// <summary>
+		/// Filtr vozidel
+		/// </summary>
+		/// <param name="item"></param>
 		private bool VehiclesFilter(object item)
 		{
 			Vozidlo vozidlo = item as Vozidlo;
@@ -139,6 +160,9 @@ namespace DesktopApp
 					vozidlo.Aktivni;
 		}
 
+		/// <summary>
+		/// Kliknutí na tlačítko Hledat
+		/// </summary>
 		private void Hledat_Click(object sender, RoutedEventArgs e)
 		{
 			CollectionViewSource.GetDefaultView(listView.ItemsSource).Refresh();

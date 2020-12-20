@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +26,11 @@ namespace WebApp.Pages
         {
         }
 
+        /// <summary>
+		/// Přesměruje na stránku RezervaceDetail
+		/// </summary>
+        /// <param name="id">ID rezervace</param>
+        /// <returns>Stránka RezervaceDetail</returns>
         public RedirectToPageResult OnPostDetail(int id)
         {
             return new RedirectToPageResult("RezervaceDetail", new { id });

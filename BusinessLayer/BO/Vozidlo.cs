@@ -9,6 +9,9 @@ namespace BusinessLayer.BO
 	/// </summary>
 	public class Vozidlo
 	{
+		/// <summary>
+		/// ID vozidla v databázi
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
@@ -32,12 +35,12 @@ namespace BusinessLayer.BO
 		public int CenaZaDen { get; set; }
 
 		/// <summary>
-		/// Pocet dveri vozidla
+		/// Počet dveří vozidla
 		/// </summary>
 		public int PocetDveri { get; set; }
 
 		/// <summary>
-		/// Motor vozidla
+		/// Motor vozidla a jeho výkon
 		/// </summary>
 		public string Motor { get; set; }
 
@@ -46,6 +49,9 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public double Spotreba { get; set; }
 
+		/// <summary>
+		/// Obrázek vozidla
+		/// </summary>
 		public string Obrazek { get; set; }
 
 		/// <summary>
@@ -53,6 +59,9 @@ namespace BusinessLayer.BO
 		/// </summary>
 		public bool Aktivni { get; set; }
 
+		/// <summary>
+		/// Pobočka na které je vozidlo dostupné
+		/// </summary>
 		public Pobocka Pobocka { get; set; }
 	}
 }

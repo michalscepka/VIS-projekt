@@ -17,6 +17,11 @@ namespace WebApp.Pages
         public int Status { get; set; }
         public Rezervace NewRezervace { get; set; }
 
+        [BindProperty]
+        public DateTime DatumStart { get; set; }
+        [BindProperty]
+        public DateTime DatumKonec { get; set; }
+
         public VozidloDetailModel()
 		{
             Status = 0;
@@ -27,10 +32,10 @@ namespace WebApp.Pages
             Vozidlo = VozidlaHelper.Instance.GetVozidlo(id);
         }
 
-        [BindProperty]
-        public DateTime DatumStart { get; set; }
-        [BindProperty]
-        public DateTime DatumKonec { get; set; }
+        /// <summary>
+		/// Pokusí se rezervovat vozidlo
+		/// </summary>
+        /// <param name="id">ID vozidla</param>
         public void OnPostRezervovat(int id)
         {
             Vozidlo = SpravaVozidel.Instance.FindVozidlo(id);

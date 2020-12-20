@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +15,9 @@ namespace WebApp.Pages
         public Rezervace SelectedRezervace { get; set; }
         public int Status { get; set; }
         public IEnumerable<Vozidlo> Vozidla { get; set; }
-        public Rezervace NewRezervace { get; set; }
+
+        [BindProperty]
+        public DateTime DatumProdlouzeni { get; set; }
 
         public RezervaceDetailModel()
 		{
@@ -27,8 +29,10 @@ namespace WebApp.Pages
             SelectedRezervace = SpravaRezervaci.Instance.FindRezervace(id);
         }
 
-        [BindProperty]
-        public DateTime DatumProdlouzeni { get; set; }
+        /// <summary>
+		/// Pokusí se prodloužit rezervaci vozidla
+		/// </summary>
+        /// <param name="id">ID rezervace</param>
         public void OnPostProdlouzit(int id)
         {
             SelectedRezervace = SpravaRezervaci.Instance.FindRezervace(id);
@@ -65,6 +69,11 @@ namespace WebApp.Pages
             }
         }
 
+        /// <summary>
+		/// Přesměruje na stránku VozidloDetail
+		/// </summary>
+        /// <param name="id">ID vozidla</param>
+        /// <returns>Stránka VozidloDetail</returns>
         public RedirectToPageResult OnPostDetail(int id)
         {
             return new RedirectToPageResult("VozidloDetail", new { id });

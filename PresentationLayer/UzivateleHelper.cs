@@ -22,14 +22,15 @@ namespace PresentationLayer
             }
         }
 
-        /// <summary>
-        /// Objekt spravy zamestnancu
-        /// </summary>
         private UzivateleHelper()
-        {
+		{
 
-        }
+		}
 
+        /// <summary>
+		/// Vrátí přihlášeného zákazníka
+		/// </summary>
+		/// <returns>Přihlášený zákazník</returns>
         public Zakaznik GetPrihlasenyZakaznik()
 		{
 			return SpravaZakazniku.Instance.FindZakaznik(1);

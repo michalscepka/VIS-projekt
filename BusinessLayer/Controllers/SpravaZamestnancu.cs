@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BusinessLayer.Controllers
 {
+	/// <summary>
+	/// Třída zodpovědná za správu zaměstnanců
+	/// </summary>
 	public class SpravaZamestnancu
 	{
         /// <summary>
@@ -26,11 +29,6 @@ namespace BusinessLayer.Controllers
         public List<Zamestnanec> SeznamZamestnancu { get; }
 
         /// <summary>
-        /// Celkový počet včech zamestnancu v systému
-        /// </summary>
-        public int CelkovyPocetZamestnancu => SeznamZamestnancu.Count;
-
-        /// <summary>
         /// Statická vlastnost třídy, přes kterou se přistupuje ke třídě jako singletonu
         /// </summary>
         public static SpravaZamestnancu Instance
@@ -46,7 +44,7 @@ namespace BusinessLayer.Controllers
 
         /// <summary>
         /// Privátní konstruktor, třídu nelze vytvořit jinak, než přes přístup na vlastnost Instance
-        /// V rámci konstruktoru načte všechny pobocky z uložiště
+        /// V rámci konstruktoru načte všechny zaměstnance z uložiště
         /// </summary>
         private SpravaZamestnancu()
         {
@@ -79,11 +77,12 @@ namespace BusinessLayer.Controllers
 			}
 		}
 
-        /// <summary>
-        /// Vložení nebo aktualizace objektu zamestnanec v uložišti
-        /// </summary>
-        /// <param name="zamestnanec"></param>
-        private bool InsertOrUpdate(Zamestnanec zamestnanec)
+		/// <summary>
+		/// Vložení nebo aktualizace objektu zaměstnanec v úložišti
+		/// </summary>
+		/// <param name="zamestnanec"></param>
+		/// <returns>True, pokud se insert/update povedl</returns>
+		private bool InsertOrUpdate(Zamestnanec zamestnanec)
         {
 			ZamestnanecDTO zamestnanecDTO = new ZamestnanecDTO()
 			{
@@ -109,7 +108,7 @@ namespace BusinessLayer.Controllers
 		}
 
         /// <summary>
-        /// Smazání zaměstnance z Uložiště
+        /// Smazání zaměstnance z úložiště
         /// </summary>
         /// <param name="zamestnanec">Objekt, který chceme smazat</param>
         /// <returns>True, pokud se povedlo smazání</returns>
@@ -160,17 +159,16 @@ namespace BusinessLayer.Controllers
         /// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
         public Zamestnanec FindZamestnanec(int id)
         {
-            //Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
-            if (id < 0)
+			//Zaporne ID značí neuložený nový záznam
+			if (id < 0)
                 return null;
 
-			//Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+			//Ověříme, že nemáme objekt již v načteném seznamu, pokud ano tak tento objekt vrátíme
 			Zamestnanec zamestnanec = SeznamZamestnancu.Find(x => x.Id == id);
             if (zamestnanec != null)
                 return zamestnanec;
 
 			//Nebyl nalezen objekt v seznamu, tak zkusíme uložíště
-
 			if (ZamestnanecGW.Instance.Find(id, out ZamestnanecDTO zamestnanecDTO, out string errMsg))
 			{
 				return new Zamestnanec()
@@ -198,8 +196,10 @@ namespace BusinessLayer.Controllers
 		/// <param name="zamestnanec">Objekt zaměstnanec, ktrerý budeme vkládat</param>
 		public void AddZamestnanec(Zamestnanec zamestnanec)
 		{
+			//Vlozeni objektu do uloziste
 			if (InsertOrUpdate(zamestnanec))
 			{
+				//Vlozeni objektu do seznamu
 				SeznamZamestnancu.Add(zamestnanec);
 			}
 		}
@@ -213,7 +213,7 @@ namespace BusinessLayer.Controllers
 			//Aktualizace v ulozisti
 			if (InsertOrUpdate(zamestnanec))
 			{
-				//Aktualizovat musime i objekt v seznamu
+				//Aktualizace v seznamu
 				Zamestnanec updatedZamestnanec = SeznamZamestnancu.Find(x => x.Id == zamestnanec.Id);
 				updatedZamestnanec.Id = zamestnanec.Id;
 				updatedZamestnanec.Jmeno = zamestnanec.Jmeno;
@@ -233,11 +233,10 @@ namespace BusinessLayer.Controllers
 		/// <param name="zamestnanec"></param>
 		public void DeleteZamestnanec(Zamestnanec zamestnanec)
 		{
-			//Mažeme objekt kniha v uložišti
+			//Smazani z uloziste
 			if (Delete(zamestnanec))
 			{
-				//Musíme smazat i v seznamu knih
-				//SeznamZamestnancu.Remove(zamestnanec);
+				//Smazani ze seznamu
 				SeznamZamestnancu.Remove(SeznamZamestnancu.Find(x => x.Id == zamestnanec.Id));
 			}
 		}

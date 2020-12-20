@@ -7,6 +7,9 @@ using System.Text;
 
 namespace DataLayer.TableDataGateways
 {
+	/// <summary>
+	/// TableDataGateway použití vzoru pro třídu zákazník
+	/// </summary>
 	public class ZakaznikGW : IDataGW<ZakaznikDTO>
 	{
 		private static readonly object m_LockObj = new object();
@@ -28,12 +31,6 @@ namespace DataLayer.TableDataGateways
 
 		}
 
-		/// <summary>
-		/// Načtení všech zaměstnanců z databáze do objektu ZakaznikDTO
-		/// </summary>
-		/// <param name="seznam">List načtených zaměstnanců</param>
-		/// <param name="errMsg">Chybové hlášení, pokud nastala chyba</param>
-		/// <returns>True - načtení proběhlo bez chyby, False - chyba při načítání</returns>
 		public bool LoadAll(out List<ZakaznikDTO> seznam, out string errMsg)
 		{
 			seznam = null;
@@ -41,7 +38,7 @@ namespace DataLayer.TableDataGateways
 
 			var sql = "SELECT id, jmeno, prijmeni, email, telefon, datum_narozeni, login, heslo, cislo_platebni_karty, ridicsky_prukaz_id FROM zakaznik";
 
-			//Nacteni zamestnance z uloziste
+			//Nacteni objektu z uloziste
 			try
 			{
 				Database.Instance.Connect();
@@ -101,12 +98,6 @@ namespace DataLayer.TableDataGateways
 			return true;
 		}
 
-		/// <summary>
-		/// Uložení všech objektů zaměstnanci do Databáze. Provede jejich Insert/Update a to v DB transakci
-		/// </summary>
-		/// <param name="seznam">List zaměstnanců, které chcecme uložit do DB</param>
-		/// <param name="errMsg">Chybové hlášení pokud nastala chyba</param>
-		/// <returns>True - operace se provedla, False - nastala chyba</returns>
 		public bool SaveAll(List<ZakaznikDTO> seznam, out string errMsg)
 		{
 			errMsg = string.Empty;
@@ -118,7 +109,7 @@ namespace DataLayer.TableDataGateways
 				"UPDATE zakaznik SET jmeno=@jmeno, prijmeni=@prijmeni, email=@email, telefon=@telefon, datum_narozeni=@datum_narozeni, login=@login, heslo=@heslo, " +
 				"cislo_platebni_karty=@cislo_platebni_karty, ridicsky_prukaz_id=@ridicsky_prukaz_id WHERE id=@id";
 
-			//Vlozeni nebo aktualizace zamestnance v ulozisti
+			//Vlozeni nebo aktualizace objektu v ulozisti
 			try
 			{
 				Database.Instance.Connect();
@@ -146,7 +137,6 @@ namespace DataLayer.TableDataGateways
 							{
 								var result = Database.Instance.ExecuteNonQuery(sqlCmd);
 								//Pokud je návratová hodnota záporná nepovedlo se vložit/upravit
-								//TODO mozna '<='
 								if (result < 0)
 									throw new DataException($"Nepovedlo se uložit Knihu ID:({seznam[i].Id})");
 							}
@@ -178,12 +168,6 @@ namespace DataLayer.TableDataGateways
 			return true;
 		}
 
-		/// <summary>
-		/// Vložení nebo aktualizace zaměstnance v DB
-		/// </summary>
-		/// <param name="entity">Pokud je záporné ID, pak se jedná o nového zamestnance a bude vytvořen, id po návratu obsahujé přidělené ID z DB, jinak se provede update</param>
-		/// <param name="errMsg">Chybové hlášení pokud nastala chyba</param>
-		/// <returns>True nebyla chyba, False chyba nastala</returns>
 		public bool InsertOrUpdate(ZakaznikDTO entity, out string errMsg)
 		{
 			errMsg = string.Empty;
@@ -196,7 +180,7 @@ namespace DataLayer.TableDataGateways
 				"cislo_platebni_karty=@cislo_platebni_karty, ridicsky_prukaz_id=@ridicsky_prukaz_id WHERE id=@id";
 			var sql = entity.Id < 0 ? sqlInsert : sqlUpdate;
 
-			//Vlozeni nebo aktualizace zamestnance v ulozisti
+			//Vlozeni nebo aktualizace objektu v ulozisti
 			try
 			{
 				Database.Instance.Connect();
@@ -261,19 +245,13 @@ namespace DataLayer.TableDataGateways
 			return true;
 		}
 
-		/// <summary>
-		/// Smazání zaměstnance z DB uložiště
-		/// </summary>
-		/// <param name="id">ID zaměstnance</param>
-		/// <param name="errMsg">Chybové hlášení</param>
-		/// <returns>True smazání se povedlo, False nepovedlo</returns>
 		public bool Delete(int id, out string errMsg)
 		{
 			errMsg = string.Empty;
 
 			var sql = "DELETE FROM zakaznik WHERE id=@id";
 
-			//Smazani zamestnance z uloziste
+			//Smazani objektu z uloziste
 			try
 			{
 				Database.Instance.Connect();
@@ -287,7 +265,7 @@ namespace DataLayer.TableDataGateways
 						try
 						{
 							var result = Database.Instance.ExecuteNonQuery(sqlCmd);
-							//Pokud je návratová hodnota záporná nepovedlo se smazat uživatele
+							//Pokud je návratová hodnota záporná nepovedlo se smazat objekt
 							if (result < 0)
 								throw new DataException($"Nepovedlo se smazat Uživatele ID:({id})");
 
@@ -319,19 +297,12 @@ namespace DataLayer.TableDataGateways
 			return true;
 		}
 
-		/// <summary>
-		/// Nalezeni zaměstnance na základě jeho ID
-		/// </summary>
-		/// <param name="id">Hledane ID</param>
-		/// <param name="entity">Nalezeny DTO zaměstnanec nebo null</param>
-		/// <param name="errMsg">Chybové hlášení</param>
-		/// <returns>TRUE hledání se provedlo, FALSE nastala chyba hledání</returns>
 		public bool Find(int id, out ZakaznikDTO entity, out string errMsg)
 		{
 			errMsg = string.Empty;
 			entity = null;
 
-			//Nalezeni uzivatele podle jeho id v DB
+			//Nalezeni objektu podle jeho id v DB
 			try
 			{
 				Database.Instance.Connect();

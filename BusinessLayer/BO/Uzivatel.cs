@@ -10,27 +10,32 @@ namespace BusinessLayer.BO
 	public abstract class Uzivatel
 	{
 		/// <summary>
-		/// Jméno osoby
+		/// ID uživatele v databázi
+		/// </summary>
+		public int Id { get; set; }
+
+		/// <summary>
+		/// Jméno uživatele
 		/// </summary>
 		public string Jmeno { get; set; }
 
 		/// <summary>
-		/// Příjmení osoby
+		/// Příjmení uživatele
 		/// </summary>
 		public string Prijmeni { get; set; }
 
 		/// <summary>
-		/// Email osoby
+		/// Email uživatele
 		/// </summary>
 		public string Email { get; set; }
 
 		/// <summary>
-		/// Telefon osoby
+		/// Telefon uživatele
 		/// </summary>
 		public string Telefon { get; set; }
 
 		/// <summary>
-		/// Datum narození osoby
+		/// Datum narození uživatele
 		/// </summary>
 		public DateTime DatumNarozeni { get; set; }
 	}

@@ -23,14 +23,15 @@ namespace PresentationLayer
             }
         }
 
-        /// <summary>
-        /// Objekt spravy zamestnancu
-        /// </summary>
         private VozidlaHelper()
-        {
+		{
 
-        }
+		}
 
+        /// <summary>
+		/// Získá vozidla s pobočkama
+		/// </summary>
+		/// <returns>List vozidel s pobočkama</returns>
         public IEnumerable<Vozidlo> GetVozidla()
         {
             IEnumerable<Vozidlo> vozidla = SpravaVozidel.Instance.SeznamVozidel;
@@ -39,6 +40,10 @@ namespace PresentationLayer
             return vozidla;
         }
 
+        /// <summary>
+        /// Získá vozidlo s pobočkou
+        /// </summary>
+        /// <returns>Vozidlo s pobočkou</returns>
         public Vozidlo GetVozidlo(int id)
 		{
             Vozidlo vozidlo = SpravaVozidel.Instance.FindVozidlo(id);
@@ -46,6 +51,10 @@ namespace PresentationLayer
             return vozidlo;
         }
 
+        /// <summary>
+		/// Zjistí jestli je vozidlo v zadaném čase volné
+		/// </summary>
+		/// <returns>TRUE - vozidlo je volné, FALSE není</returns>
         public bool IsVehicleFree(Vozidlo vozidlo, DateTime dateStart, DateTime dateEnd)
 		{
             IEnumerable<Rezervace> rezervaceProVozidlo = SpravaRezervaci.Instance.SeznamRezervaci.Where(x => x.Vozidlo.Id == vozidlo.Id).ToList();

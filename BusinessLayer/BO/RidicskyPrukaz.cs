@@ -5,19 +5,17 @@ using System.Text;
 namespace BusinessLayer.BO
 {
 	/// <summary>
-	/// Reprezentuje pobočku
+	/// Reprezentuje řidičský průkaz zákazníka
 	/// </summary>
 	public class RidicskyPrukaz
 	{
+		/// <summary>
+		/// ID uživatele v databázi
+		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Číslo řidičského průkazu
-		/// </summary>
-		public string CisloPrukazu { get; set; }
-
-		/// <summary>
-		/// Datum platnosti řidičáku
+		/// Datum platnosti řidičského průkazu
 		/// </summary>
 		public DateTime DatumPlatnosti { get; set; }
 	}

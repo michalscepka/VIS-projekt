@@ -8,11 +8,29 @@ using System.Text;
 
 namespace BusinessLayer.Controllers
 {
+    /// <summary>
+    /// Třída zodpovědná za správu poboček
+    /// </summary>
 	public class SpravaPobocek
 	{
-        private static readonly object m_LockObj = new object();
+        /// <summary>
+		/// Privátní statická proměnná udržující vytvořenou instanci třídy
+		/// </summary>
         private static SpravaPobocek m_Instance;
 
+        /// <summary>
+        /// Pomocný objekt sloužící pro zajištění thread safe přístupu při vytváření instance
+        /// </summary>
+        private static readonly object m_LockObj = new object();
+
+        /// <summary>
+        /// Seznam všech poboček
+        /// </summary>
+        public List<Pobocka> SeznamPobocek { get; }
+
+        /// <summary>
+        /// Statická vlastnost třídy, přes kterou se přistupuje ke třídě jako singletonu
+        /// </summary>
         public static SpravaPobocek Instance
         {
             get
@@ -25,25 +43,19 @@ namespace BusinessLayer.Controllers
         }
 
         /// <summary>
-        /// Seznam vsech poboček
-        /// </summary>
-        public List<Pobocka> SeznamPobocek { get; }
-
-        /// <summary>
-        /// Celkový počet zaměstnanců
-        /// </summary>
-        public int CelkovyPocetPobocek => SeznamPobocek.Count;
-
-
-        /// <summary>
-        /// Objekt spravy zamestnancu
-        /// </summary>
+		/// Privátní konstruktor, třídu nelze vytvořit jinak, než přes přístup na vlastnost Instance
+		/// V rámci konstruktoru načte všechny pobočky z uložiště
+		/// </summary>
         private SpravaPobocek()
         {
             SeznamPobocek = new List<Pobocka>();
             NacteniZUloziste();
         }
 
+        /// <summary>
+        /// Načtení úložiště
+        /// </summary>
+        /// <returns>True načtení se provedlo</returns>
         private bool NacteniZUloziste()
         {
 			if (PobockaGW.Instance.Load(out List<PobockaDTO> lstPobocky, out string errMsg))
@@ -65,21 +77,20 @@ namespace BusinessLayer.Controllers
 			}
 			else
 			{
-				//Zalogujeme někam chybu
 				throw new Exception($"Pobocky: NacteniZUloziste \n{errMsg}");
 			}
 		}
 
+        /// <summary>
+        /// Uložení dat do úložiště
+        /// </summary>
+        /// <returns>True načtení se provedlo, False nastala chyba</returns>
         public bool SaveAll()
         {
             string errMsg = string.Empty;
-
-            //Pomocny seznam pro ukladani
             List<PobockaDTO> lstPobocky = new List<PobockaDTO>();
-
             var maxID = SeznamPobocek.Max(r => r.Id) + 1;
 
-            //Naplneni zamestnancu
             foreach (var item in SeznamPobocek)
             {
                 lstPobocky.Add(
@@ -94,38 +105,35 @@ namespace BusinessLayer.Controllers
 
             if (!PobockaGW.Instance.Save(lstPobocky, out errMsg))
             {
-                //Zalogujeme někam chybu
-                throw new Exception($"Pobocky: ZapisDoUloziste \n{errMsg}");
+                throw new Exception($"Pobocky: SaveAll \n{errMsg}");
             }
             return true;
         }
 
         /// <summary>
-        /// Vložení nového zaměstnance
+        /// Vložení nové pobočky
         /// </summary>
-        /// <param name="pobocka"> Objek třídy zaměstnanec</param>
+        /// <param name="pobocka"> Objek třídy pobočka</param>
         public void AddPobocka(Pobocka pobocka)
         {
+            //Vlozeni objektu do seznamu
             SeznamPobocek.Add(pobocka);
         }
 
         /// <summary>
-		/// Vyhledani zaměstnance podle jeho ID
+		/// Vyhledani pobočky podle jejího ID
 		/// </summary>
-		/// <param name="id">ID zaměstnance</param>
-		/// <returns>Vrací instanci objektu zaměstnanec nebo null pokud se nic nenašlo</returns>
+		/// <param name="id">ID pobočky</param>
+		/// <returns>Vrací instanci objektu pobočka nebo null pokud se nic nenašlo</returns>
 		public Pobocka FindPobocka(int id)
         {
-            //Zaporne ID značí neuložený nový záznam, takže ho asi nevyhledáme podle iD
+            //Zaporne ID značí neuložený nový záznam
             if (id < 0)
                 return null;
 
-            //Ověříme, že nemáme knihu již v načteném seznamu, pokud ano tak tento objekt vrátíme
+            //Ověříme, že nemáme objekt již v načteném seznamu, pokud ano tak tento objekt vrátíme
             Pobocka pobocka = SeznamPobocek.Find(x => x.Id == id);
-            if (pobocka != null)
-                return pobocka;
-            else
-                return null;
+            return pobocka ?? null;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace DTO.Classes
 	public class ZamestnanecDTO : UzivatelDTO
 	{
 		/// <summary>
-		/// Datum přijetí do zaměstnání
+		/// Datum nástupu do zaměstnání
 		/// </summary>
 		public DateTime DatumNastupu { get; set; }
 
